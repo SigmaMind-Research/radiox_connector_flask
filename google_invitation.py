@@ -9,3 +9,13 @@ def get_google_login_url(group_id):
         'response_type': 'code'
     }
     return authorize_url + '?' + urlencode(params)
+
+@app.route('/google-callback')
+def google_callback():
+    # Get the group ID from the query parameters
+    group_id = request.args.get('group_id')
+
+    # Do something with the group ID
+    # For example, associate the user with the specified group
+
+    # Continue with the rest of your authentication process
