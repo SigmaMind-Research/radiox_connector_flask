@@ -19,3 +19,38 @@ def google_callback():
     # For example, associate the user with the specified group
 
     # Continue with the rest of your authentication process
+####### Sample code 
+from flask import Flask, request
+from flask_restx import Api, Resource, reqparse
+
+app = Flask(__name__)
+api = Api(app)
+
+# Define parser for arguments
+parser = reqparse.RequestParser()
+parser.add_argument('parameter1', type=str, required=True, help='This parameter is required')
+parser.add_argument('parameter2', type=str, required=False, help='This parameter is optional')
+
+@api.route('/upload')
+class UploadFiles(Resource):
+    def post(self):
+        args = parser.parse_args()
+        parameter1 = args['parameter1']
+        parameter2 = args.get('parameter2')
+
+        # Access uploaded files
+        files = request.files.getlist('file')  # Use getlist for multiple files
+
+        # Process files and parameters
+        for file in files:
+            # You can access filename and data using file.filename and file.read()
+            print(f"Uploaded file: {file.filename}")
+            # Process file data here
+
+        # Return response based on processing
+        return {'message': 'Files and parameters uploaded successfully!',
+                'parameter1': parameter1,
+                'parameter2': parameter2}
+
+if __name__ == '__main__':
+    app.run(debug=True)
