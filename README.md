@@ -1,1 +1,1 @@
-# radiox_ui
+# radiox connector for xray machine 
